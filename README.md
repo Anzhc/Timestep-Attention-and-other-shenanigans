@@ -5,7 +5,16 @@ This gave me an idea of a mechanism that would adjust itself automatically in sc
 ## Benefits  
 Timestep Attnetion approach minifies sampling of low loss timesteps(usually timesteps past 500), and maximizes sampling of high loss timesteps, which are usually located very close to 0, but not quite.  
 Here are some examples of final step distributions by timesteps:  
-![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/6344f871-a8d5-43ae-aae5-e59fda175751)
-![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/6288b32f-97b5-4869-b5dd-b0c21a36e19f)
-![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/dc6c688a-5d98-41f3-a8fc-8625599f5de7)
-As you can see, in LoRAs they tend to be forward-facing, but they are not identical, and their lossscape creates different chance distributions. Essentially, Timestep Attention tries to tailor timestep distribution to your particular dataset.
+Training after recent update with 0.3 exponential Huber loss:
+![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/6344f871-a8d5-43ae-aae5-e59fda175751)  
+Generic training
+![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/6288b32f-97b5-4869-b5dd-b0c21a36e19f)  
+Generic training x2
+![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/dc6c688a-5d98-41f3-a8fc-8625599f5de7)  
+Smaller file(less steps) with exponential 0.3 Huber loss:  
+![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/ab646c36-9802-4a02-a8c6-4fea56347bb5)  
+P.S. All graphs are showing adjust 0.4 dsitribution for smoothing overall experience. Real distribution is quite a bit more radical.  
+Example of older training with lower adjust, or lack of it(sorry, i don't have notes on runs e_e):  
+![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/0fb16d00-2783-4219-857a-9c0eb7ec99ad)
+
+As you can see, in LoRAs they tend to be forward-facing, but they are not identical, and their lossscape creates different chance distributions. Essentially, Timestep Attention tries to tailor timestep distribution to your particular dataset.  
