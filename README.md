@@ -18,3 +18,5 @@ Example of older training with lower adjust, or lack of it(sorry, i don't have n
 ![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/0fb16d00-2783-4219-857a-9c0eb7ec99ad)
 
 As you can see, in LoRAs they tend to be forward-facing, but they are not identical, and their lossscape creates different chance distributions. Essentially, Timestep Attention tries to tailor timestep distribution to your particular dataset.  
+Here is how generic chance of particular timesteps graph could look like:  
+![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/c5368e3c-c074-45a9-a929-e49808f87618)
