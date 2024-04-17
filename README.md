@@ -5,6 +5,11 @@ Attention-like mechanism for optimizing training of Stable Diffusion and similar
 
 We were inspired by Stable Diffusion 3 paper - https://arxiv.org/pdf/2403.03206.pdf, particularly by Table 1, where they look at different variants of functions(eps/vpred/rf) and scheduling(uniform, lognorm(and variations), cosine, etc.). In their paper (Also big thanks to Alex Goodwin a.k.a @mcmonkey4eva  for answering some of our general questions about SD3 and paper) they find lognorm with mean and std of 0 and 1 being most suitable overall, but some variants with shifted distributions were top performers in specific metrics. We concluded that we could use that in our day-to-day trainings, and we did see improvement in LoRAs when using lognorm, shifted lognorm and dynamic lognorm(that starts at 0 and 1, and in course of training shifts towards 0.65 and 1). We determine visually that dynamic version of lognorm were performing best overall in our small training tasks.  
 This gave me an idea of a mechanism that would adjust itself automatically in scope of training to concentrate on harder loss-wise parts, so, here we are, presenting you - Timestep Attention!  
+## Concept  
+Timestep Attention works by creating a **Loss Map**, which consists of timestep values paired with estimated moving average loss (EMA Loss). It works by recording and moving loss value towards received one by certain specified margin, so over time whole graph will average into distribution tailored specifically to dataset used.  
+By itself, this is not extremely useful due to large amount of timesteps in training(usually 1000), it would take half of common lora training time to sample them all, usually not all of them are even visited in scope of such training. We utilize flexible approximation with value decay to adjust nearby timesteps at lower values, which speeds up creation of graph a lot. Usually by ~400 real steps you have proper distribution graph. Then that graph still is continuously updated and can shift in scope of training.  
+In some cases chance to sample certain timesteps could be too high or too low. By default we want to visit whole range periodically to gather trained data examples on majority of timesteps, so we implement mechanism that adjusts sampling chances.  
+All that leads to pretty robust system that you usually don't need to adjust and can use as is.
 ## Benefits, examples and anecdotal evidence  
 Timestep Attnetion approach minifies sampling of low loss timesteps(usually timesteps past 500), and maximizes sampling of high loss timesteps, which are usually located very close to 0, but not quite.  
 Here are some examples of final step distributions by timesteps:  
@@ -39,5 +44,10 @@ We get 3.57 times difference in blocks using our config, and we would estimate t
 Here is example with small PonyXL finetune:  
 ![изображение](https://github.com/Anzhc/Timestep-Attention/assets/133806049/2216e062-58f6-40a5-b522-975210e098ed)  
 P.S. Supermerger currently doesn't support ASimilarity mode for XL, so those percentages can't be used interchangeably with previous graph.  
-Left values are new finetune made with TA, right finetune was made with dynamic lognorm sampling, iirc.  
+Left values are new finetune made with TA and CAMES(CAME with stochastic modification), right finetune was made with dynamic lognorm sampling, iirc.  
+Don't forget to attribute some of changes to CAMES.  
 On practice change magnitude done to model with TA was strong enough to create visible issues with LoRAs trained on ancestor checkpoint, it would create "burn", likely due to weight overlap. Not on the 1.5 burn scale of course, but it is noticeable difference.  
+
+## Conclusion or smth i guess?  
+Regardless of our shoddy at best "research" practices, TA as a concept does work, and it does bring benefits in lots of cases.  
+We would encourage you to play with values and approaches on how to utilize it.
