@@ -18,7 +18,7 @@ def adjust_losses(all_losses, penalty):
             adjusted_losses[i] = loss * (1 - adjust_down)
         else:
             fraction_below = (average_loss - loss) / (average_loss - lowest_loss + 1e-6)
-            adjust_up = 0.4 * fraction_below
+            adjust_up = penalty * fraction_below
             adjusted_losses[i] = loss * (1 + adjust_up)
 
     adjusted_losses *= all_losses.sum() / adjusted_losses.sum()
