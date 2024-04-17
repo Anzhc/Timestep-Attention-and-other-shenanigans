@@ -86,7 +86,7 @@ def update_loss_map_ema(current_loss_map, new_losses, timesteps, min_timesteps, 
         for offset, weight in enumerate(decay_weights, start=1):
             for direction in [-1, 1]:
                 adjacent_timestep = timestep_value + direction * offset
-                if 1 <= adjacent_timestep < 1000:
+                if min_timesteps <= adjacent_timestep < max_timesteps:
                     if adjacent_timestep in current_loss_map:
                         adjacent_current_loss = current_loss_map[adjacent_timestep]
                         decayed_loss_value = loss_value - (loss_value - current_average_loss) * weight
