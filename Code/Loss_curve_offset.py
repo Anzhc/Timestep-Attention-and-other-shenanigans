@@ -6,7 +6,7 @@ import torch
 
 # If you are utilizing Timestep Attention - put grabbing of 'loss_for_timesteps' BEFORE applying this function.
 
-def loss_curve_offset(loss, timesteps, current_step, full_training_steps, loss_curve_scale=0.5, loss_curve_schedule=0, min_timesteps=1, max_timesteps=999):
+def loss_curve_offset(loss, timesteps, current_step, full_training_steps, loss_curve_scale=0.5, loss_curve_schedule=0, min_timesteps=1, max_timesteps=1000):
 
     normalized_timesteps = ((timesteps - 1) / (max_timesteps - min_timesteps)) * 12 - 6
 
