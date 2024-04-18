@@ -55,4 +55,8 @@ We would encourage you to play with values and approaches on how to utilize it.
 # Loss Curve Offset  
 Small function that creates a curve for given timestep values and then adjusts received loss based on timesteps they were received for.  
 Will lower loss for timesteps closer to 1000, and increase for timesteps closer to 0 (or min/max) with a soft curve that doesn't touch values of middle timesteps much.  
-Can improve convergence in SD models.
+Can improve convergence in SD models.  
+  
+Supports linear scheduling based on steps.  
+Generally, i observed less overfit to styles in small character trainings, and better convergence for style trainings. But i lost image where i did comparison, soooo...  
+Just test it yourself :3
