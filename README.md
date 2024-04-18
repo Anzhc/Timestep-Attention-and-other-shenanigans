@@ -50,4 +50,9 @@ On practice change magnitude done to model with TA was strong enough to create v
 
 ## Conclusion or smth i guess?  
 Regardless of our shoddy at best "research" practices, TA as a concept does work, and it does bring benefits in lots of cases.  
-We would encourage you to play with values and approaches on how to utilize it.
+We would encourage you to play with values and approaches on how to utilize it.  
+  
+# Loss Curve Offset  
+Small function that creates a curve for given timestep values and then adjusts received loss based on timesteps they were received for.  
+Will lower loss for timesteps closer to 1000, and increase for timesteps closer to 0 (or min/max) with a soft curve that doesn't touch values of middle timesteps much.  
+Can improve convergence in SD models.
