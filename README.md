@@ -33,7 +33,7 @@ We observe that TA performs better when it comes to concepts, styles and general
 
 Here is test of same dataset on exact same settings with onyl difference being timestep sampling:  
 ![02029-1471230619](https://github.com/Anzhc/Timestep-Attention-and-other-shenanigans/assets/133806049/f589e298-397c-4c7a-a8b8-6230781c8d39)  
-TA seemingly converges on epoch 15 already, and doesn't change in any major way, while uniform distribution arrives to that on epoch 30.
+TA seemingly converges on epoch 15 already, and doesn't change in any major way, while uniform distribution arrives to that on epoch 25.
 Here is a meme concept training sampled each 5 epochs with TA and uniform sampling:  
 ![01912-3021200407](https://github.com/Anzhc/Timestep-Attention/assets/133806049/decf0a08-de7f-493e-ac0b-60780b65a37d)
 You can see that TA converges to concept faster, and final result is more appealing.  
