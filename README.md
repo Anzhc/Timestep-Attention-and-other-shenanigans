@@ -51,12 +51,16 @@ P.S. Supermerger currently doesn't support ASimilarity mode for XL, so those per
 Left values are new finetune made with TA and CAMES(CAME with stochastic modification), right finetune was made with dynamic lognorm sampling, iirc.  
 Don't forget to attribute some of changes to CAMES.  
 On practice change magnitude done to model with TA was strong enough to create visible issues with LoRAs trained on ancestor checkpoint, it would create "burn", likely due to weight overlap. Not on the 1.5 burn scale of course, but it is noticeable difference.  
+  
+### Loss Curve Offset with Loss Map  
+Variation of Loss Curve Offset with curve being dynamic loss map we build with Timestep Attention.
 
 ## Conclusion or smth i guess?  
 Regardless of our shoddy at best "research" practices, TA as a concept does work, and it does bring benefits in lots of cases.  
 We would encourage you to play with values and approaches on how to utilize it.  
   
 # Loss Curve Offset  
+#### (Superseeded by Loss Curve Offset with Loss Map)  
 Small function that creates a curve for given timestep values and then adjusts received loss based on timesteps they were received for.  
 Will lower loss for timesteps closer to 1000, and increase for timesteps closer to 0 (or min/max) with a soft curve that doesn't touch values of middle timesteps much.  
 Can improve convergence in SD models.  
