@@ -95,16 +95,17 @@ def update_loss_map_ema(current_loss_map, new_losses, timesteps, min_timesteps, 
 
     return current_loss_map
 
-def loss_map_loss_curve(loss, timesteps, loss_map, min_timesteps, max_timesteps, loss_curve_scale=1):
+def loss_map_loss_curve(loss, timesteps, loss_map, min_timesteps, max_timesteps, loss_curve_scale=1, loss_sched_start=1, loss_sched_move=-1):
 
     all_timesteps = torch.arange(min_timesteps, max_timesteps, device=loss.device)
     all_losses = torch.tensor([loss_map.get(t.item(), 1.0) for t in all_timesteps], dtype=torch.float32, device=loss.device)
-
+    
     adjusted_probabilities = all_losses / all_losses.sum()
     mean_probability = adjusted_probabilities.mean()
     timestep_probabilities = adjusted_probabilities[timesteps - 1]
-
     multipliers = timestep_probabilities / mean_probability
+
+    loss_curve_scale = loss_sched_start + (loss_sched_move * (c_step/sched_train_steps))
     multipliers = 1 + (multipliers - 1) * loss_curve_scale
 
     adjusted_loss = loss * multipliers.view(-1, 1, 1, 1)
