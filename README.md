@@ -40,3 +40,14 @@ Can improve convergence in SD models.
 Supports linear scheduling based on steps.  
 Generally, i observed less overfit to styles in small character trainings, and better convergence for style trainings. But i lost image where i did comparison, soooo...  
 Just test it for yourself :3
+
+# Loss Functions
+## EW Loss (Exponential Weighted Loss) and Clustered MSE Loss  
+I'd suggest just ignoring those for the time being.  
+EW Loss is a concept that exponentially increases and decreases loss the further it is from mean average, then interpolates more lossy half with MSE for stability, and replaces low values with MSE values, if they are lower.  
+Idea is to vastly increase attention towards outliers, to maximize learning of unique features, while minimizing attention to parts that are largely considered by model to be already learned.  
+It might not even work properly, though, it did change target ot which loras converged, and they are stronger in terms of style, but are not as clean and stable as standard MSE loss.  
+  
+Clustered MSE Loss generally would not differ from generic MSE loss at larg,e and only in few samples will converge to different result. I believe it to be a bit more stable, as it is practically a bit opposite to EW Loss.  
+CMSE Loss clusters loss values in amount of groups determined by Loss Map distribution, and replaces loss values in that cluster with averaged one, which essentially doesn't change total amount of loss, but seems to make training tiny bit more stable, and i actually prefer results of it.  
+This loss can be used as base for further experiments with loss clusters.
