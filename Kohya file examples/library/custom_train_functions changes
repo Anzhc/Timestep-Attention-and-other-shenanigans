@@ -1,4 +1,11 @@
 #Custom_train_functions
+#Line 8 or so
+
+import torch.nn.functional as F
+from sklearn.cluster import KMeans
+import warnings
+...
+
 #Just add all those at the end
 
 def timestep_attention(run_number, loss_map, max_timesteps, b_size, device):
