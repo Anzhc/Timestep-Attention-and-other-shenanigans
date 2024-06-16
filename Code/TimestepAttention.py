@@ -73,7 +73,7 @@ def update_loss_map_ema(current_loss_map, new_losses, timesteps, min_timesteps, 
     # Percentage of loss to apply to current loss map value of timestep and nearby timesteps. From furthest to timestep itself.
     # Amount of fractions in array below is responsible for amount of timesteps affected +- from timestep received.
     # This is utilized for faster creation of timestep-loss landscape.
-    decay_weights = [0.01, 0.02, 0.03, 0.04, 0.06, 0.09, 0.18, 0.25, 0.25, 0.35, 0.50]
+    decay_weights = [0.02, 0.06, 0.18, 0.35, 0.50]
 
     for i, timestep_value in enumerate(timesteps.tolist()):
         loss_value = aggregated_losses[i] if i < len(aggregated_losses) else 0.0
