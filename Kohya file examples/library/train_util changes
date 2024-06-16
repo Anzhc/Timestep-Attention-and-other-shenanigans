@@ -1,6 +1,17 @@
 #Train_util file changes
+#Line ~80
+
+from library.custom_train_functions import (
+    update_loss_map_ema,
+    timestep_attention,
+    exponential_weighted_loss,
+    adaptive_clustered_mse_loss,
+)
+...
+
 #line 4980 or so
 #We rewrote functions a bit, so i'll post them in full
+
 #INcludes commented out other possible types of distributions for timesteps that were beneficial.
 ###
 
