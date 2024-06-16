@@ -1,3 +1,5 @@
+We provided example of changed code we used to test harcoded changes using Kohya scripts through Derrian easy trainer. Look: [files](https://github.com/Anzhc/Timestep-Attention-and-other-shenanigans/tree/main/Kohya%20file%20examples)
+  
 # Timestep-Attention  
 Attention-like mechanism for optimizing training of Stable Diffusion and similar models that are using discrete timestep values, presented to you by **Cabal Research**.  
   
